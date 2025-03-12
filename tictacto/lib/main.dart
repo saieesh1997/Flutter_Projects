@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'HomePage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Tic Tac Toe Game',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.purple),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

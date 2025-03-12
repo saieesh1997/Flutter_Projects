@@ -9,22 +9,19 @@ class HomePage extends StatefulWidget {
 
 //Logic
 class _HomePageState extends State<HomePage> {
-  //TODO: link up images
-  AssetImage cross = AssetImage("images/cross.png");
-  AssetImage circle = AssetImage("images/circle.png");
-  AssetImage edit = AssetImage("images/edit.png");
+  AssetImage cross = const AssetImage("images/cross.png");
+  AssetImage circle = const AssetImage("images/circle.png");
+  AssetImage edit = const AssetImage("images/edit.png");
 
   bool isCross = true;
   late String message;
   late List<String> gameState;
 
-  //TODO: initialize  the state of box with empty
-
   @override
   void initState() {
     super.initState();
     setState(() {
-      this.gameState = [
+      gameState = [
         "empty",
         "empty",
         "empty",
@@ -36,33 +33,29 @@ class _HomePageState extends State<HomePage> {
         "empty",
       ];
 
-      this.message = "";
+      message = "";
     });
   }
 
-  //TODO: Play Game Method
-
   playGame(int index) {
-    if (this.gameState[index] == "empty") {
+    if (gameState[index] == "empty") {
       setState(() {
-        if (this.isCross) {
-          this.gameState[index] = "cross";
-          this.isCross = false;
+        if (isCross) {
+          gameState[index] = "cross";
+          isCross = false;
         } else {
-          this.gameState[index] = "circle";
-          this.isCross = true;
+          gameState[index] = "circle";
+          isCross = true;
         }
         // this.isCross = !this.isCross;
-        this.checkWin();
+        checkWin();
       });
     }
   }
 
-  //TODO: Reset game method
-
   resetGame() {
     setState(() {
-      this.gameState = [
+      gameState = [
         "empty",
         "empty",
         "empty",
@@ -74,82 +67,76 @@ class _HomePageState extends State<HomePage> {
         "empty",
       ];
 
-      this.message = "";
+      message = "";
     });
   }
 
-  //TODO: Get Image Method
   AssetImage getImage(String value) {
     switch (value) {
       case ('empty'):
         return edit;
-        break;
 
       case ('cross'):
         return cross;
-        break;
 
       case ('circle'):
         return circle;
-        break;
     }
     return edit;
   }
-
-  //TODO: Winning Logic
 
   checkWin() {
     if ((gameState[0] != 'empty') &&
         (gameState[0] == gameState[1]) &&
         (gameState[1] == gameState[2])) {
       setState(() {
-        this.message = '${this.gameState[0]} Wins';
+        message = '${gameState[0]} Wins';
       });
     } else if ((gameState[3] != 'empty') &&
         (gameState[3] == gameState[4]) &&
         (gameState[4] == gameState[5])) {
       setState(() {
-        this.message = '${this.gameState[3]} Wins';
+        message = '${gameState[3]} Wins';
       });
     } else if ((gameState[6] != 'empty') &&
         (gameState[6] == gameState[7]) &&
         (gameState[7] == gameState[8])) {
       setState(() {
-        this.message = '${this.gameState[6]} Wins';
+        message = '${gameState[6]} Wins';
       });
     } else if ((gameState[0] != 'empty') &&
         (gameState[0] == gameState[3]) &&
         (gameState[3] == gameState[6])) {
       setState(() {
-        this.message = '${this.gameState[0]} Wins';
+        message = '${gameState[0]} Wins';
       });
     } else if ((gameState[1] != 'empty') &&
         (gameState[1] == gameState[4]) &&
         (gameState[4] == gameState[7])) {
       setState(() {
-        this.message = '${this.gameState[1]} Wins';
+        message = '${gameState[1]} Wins';
       });
     } else if ((gameState[2] != 'empty') &&
         (gameState[2] == gameState[5]) &&
         (gameState[5] == gameState[8])) {
       setState(() {
-        this.message = '${this.gameState[2]} Wins';
+        message = '${gameState[2]} Wins';
       });
     } else if ((gameState[0] != 'empty') &&
         (gameState[0] == gameState[4]) &&
         (gameState[4] == gameState[8])) {
       setState(() {
-        this.message = '${this.gameState[0]} Wins';
+        message = '${gameState[0]} Wins';
       });
     } else if ((gameState[2] != 'empty') &&
         (gameState[2] == gameState[4]) &&
         (gameState[4] == gameState[6])) {
       setState(() {
-        this.message = '${this.gameState[2]} Wins';
+        message = '${gameState[2]} Wins';
       });
     } else if (!gameState.contains('empty')) {
       setState(() {
-        this.message = 'Game Draw';
+        message = 'Game Draw';
       });
     }
   }
@@ -158,7 +145,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tic Tac Toe'),
+        title: const Text('Tic Tac Toe'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -166,40 +153,40 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
               child: GridView.builder(
-            padding: EdgeInsets.all(20.0),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            padding: const EdgeInsets.all(20.0),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 childAspectRatio: 1.0,
                 crossAxisSpacing: 10.0,
                 mainAxisSpacing: 10.0),
-            itemCount: this.gameState.length,
+            itemCount: gameState.length,
             itemBuilder: (context, i) => SizedBox(
               width: 100.0,
               height: 100.0,
               child: MaterialButton(
                 onPressed: () {
-                  this.playGame(i);
+                  playGame(i);
                 },
-                child: Image(image: this.getImage(this.gameState[i])),
+                child: Image(image: getImage(gameState[i])),
               ),
             ),
           )),
           Container(
-              padding: EdgeInsets.all(20.0),
-              child: Text(this.message,
-                  style: TextStyle(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(message,
+                  style: const TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ))),
           MaterialButton(
               color: Colors.purple,
-              child: Text("Reset Game"),
+              child: const Text("Reset Game"),
               onPressed: () {
-                this.resetGame();
+                resetGame();
               }),
           Container(
-            padding: EdgeInsets.all(20.0),
-            child: Text(
+            padding: const EdgeInsets.all(20.0),
+            child: const Text(
               "Learn Code Online",
               style: TextStyle(fontSize: 20.0),
             ),
